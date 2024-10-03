@@ -1,0 +1,7 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
+kind: AWSManagedCluster
+metadata:
+  labels:
+    {{- include "capieks.labels" . | nindent 4 }}
+  name: {{ .Values.cluster.name }}
+spec: {}
