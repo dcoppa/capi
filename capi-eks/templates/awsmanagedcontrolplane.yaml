@@ -5,15 +5,18 @@ metadata:
     {{- include "capieks.labels" . | nindent 4 }}
   name: {{ .Values.cluster.name }}-control-plane
 spec:
-  region: {{ .Values.cluster.region }}
-  sshKeyName: ""
   addons:
     - name: "aws-ebs-csi-driver"
       version: "v1.35.0-eksbuild.1"
       conflictResolution: "overwrite"
+  bastion:
+    enabled: true
+  endpointAccess: private
   iamAuthenticatorConfig:
     mapRoles:
       - username: "kubernetes-admin"
         rolearn: {{ .Values.cluster.admin_role_arn | quote }}
         groups:
           - "system:masters"
+  region: {{ .Values.cluster.region }}
+  sshKeyName: ""
