@@ -12,7 +12,8 @@ spec:
   bastion:
     enabled: true
   endpointAccess:
-    - private
+    private: true
+    public: false
   iamAuthenticatorConfig:
     mapRoles:
       - username: "kubernetes-admin"
