@@ -11,7 +11,8 @@ spec:
       conflictResolution: "overwrite"
   bastion:
     enabled: true
-  endpointAccess: private
+  endpointAccess:
+    - private
   iamAuthenticatorConfig:
     mapRoles:
       - username: "kubernetes-admin"
