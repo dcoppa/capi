@@ -22,6 +22,14 @@ spec:
         rolearn: {{ .Values.cluster.admin_role_arn | quote }}
         groups:
           - "system:masters"
+  network:
+    additionalControlPlaneIngressRules:
+      - description: "Allow internal access to k8s api endpoint"
+        protocol: tcp
+        fromPort: 443
+        toPort: 443
+        cidrBlocks:
+          - "10.0.0.0/8"
   region: {{ .Values.cluster.region }}
   roleName: eks-controlplane.cluster-api-provider-aws.sigs.k8s.io
   sshKeyName: {{ .Values.cluster.ssh_key_name }}
