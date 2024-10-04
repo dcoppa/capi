@@ -11,10 +11,10 @@ spec:
       conflictResolution: "overwrite"
   endpointAccess:
     private: true
-    public: false
+    public: true
   iamAuthenticatorConfig:
     mapRoles:
-      - username: "admin-user1"
+      - username: {{ regexFind "[^/]+$" .Values.cluster.admin_role_arn | quote }}
         rolearn: {{ .Values.cluster.admin_role_arn | quote }}
         groups:
           - "system:masters"
