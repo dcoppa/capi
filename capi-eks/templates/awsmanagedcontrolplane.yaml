@@ -11,8 +11,6 @@ spec:
       conflictResolution: "overwrite"
   bastion:
     enabled: true
-    allowedCIDRBlocks:
-      - ""
     disableIngressRules: true
     ami: "ami-0592c673f0b1e7665"
   endpointAccess:
