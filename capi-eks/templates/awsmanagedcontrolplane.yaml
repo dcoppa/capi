@@ -9,10 +9,6 @@ spec:
     - name: "aws-ebs-csi-driver"
       version: "v1.35.0-eksbuild.1"
       conflictResolution: "overwrite"
-  bastion:
-    enabled: true
-    disableIngressRules: true
-    ami: "ami-0592c673f0b1e7665"
   endpointAccess:
     private: true
     public: false
