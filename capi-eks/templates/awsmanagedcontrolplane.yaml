@@ -23,5 +23,5 @@ spec:
         groups:
           - "system:masters"
   region: {{ .Values.cluster.region }}
-  roleName: control-plane.cluster-api-provider-aws.sigs.k8s.io
+  roleName: eks-controlplane.cluster-api-provider-aws.sigs.k8s.io
   sshKeyName: {{ .Values.cluster.ssh_key_name }}
