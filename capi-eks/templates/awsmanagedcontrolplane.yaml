@@ -21,4 +21,4 @@ spec:
         groups:
           - "system:masters"
   region: {{ .Values.cluster.region }}
-  sshKeyName: "capi-ec2"
+  sshKeyName: {{ .Values.cluster.ssh_key_name }}

@@ -4,3 +4,4 @@ cluster:
   region: eu-central-1
   replicas: 1
   admin_role_arn: arn
+  ssh_key_name: capi-eks
