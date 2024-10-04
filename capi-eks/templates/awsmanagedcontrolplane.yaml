@@ -14,7 +14,7 @@ spec:
     public: false
   iamAuthenticatorConfig:
     mapRoles:
-      - username: "kubernetes-admin"
+      - username: "admin-user1"
         rolearn: {{ .Values.cluster.admin_role_arn | quote }}
         groups:
           - "system:masters"
