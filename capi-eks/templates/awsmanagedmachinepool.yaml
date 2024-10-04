@@ -6,8 +6,7 @@ metadata:
   name: {{ .Values.cluster.name }}-pool-0
 spec:
   amiType: AL2023_x86_64_STANDARD
-  roleAdditionalPolicies:
-    - "arn:aws:iam::721773408576:instance-profile/nodes.cluster-api-provider-aws.sigs.k8s.io"
+  roleName: nodes.cluster-api-provider-aws.sigs.k8s.io
   scaling:
     minSize: 1
     maxSize: 100
