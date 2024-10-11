@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: argocd-cluster
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    metadata:
+      labels:
+        job: argocd-cluster
+    spec:
+      initContainers:
+        - name: kubectl
+          image: ghcr.io/shelmangroup/distroless-k8s:1.27.1
+          imagePullPolicy: IfNotPresent
+          command: ['sh', '-c', "until kubectl -n {{ .Values.cluster.name }} get secrets {{ .Values.cluster.name }}-kubeconfig ; do sleep 1 ; done"]
+      containers:
+        - name: argocd-cli
+          image: docker.io/dcoppa/argocd-cli:1.0.5
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CLUSTER_NAME
+              value: {{ .Values.cluster.name }}
+      restartPolicy: OnFailure
+      serviceAccountName: {{ .Release.Name }}-sa
+  ttlSecondsAfterFinished: 1800

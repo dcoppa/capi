@@ -1,0 +1,14 @@
+gitrepo: https://github.com/dcoppa/capi.git
+gitbranch: main
+project: capi
+apps:
+  - name: eks
+    order: 0
+    server: in-cluster
+  - name: argocd-cluster
+    namespace: argocd
+    order: 1
+    server: in-cluster
+  - name: nginx
+    namespace: nginx
+    order: 2

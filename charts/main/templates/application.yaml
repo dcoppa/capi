@@ -1,0 +1,40 @@
+{{- range $app := .Values.apps }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ $app.order }}"
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: {{ $app.name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  destination:
+    {{- if $app.namespace }}
+    namespace: {{ $app.namespace }}
+    {{- else }}
+    namespace: {{ $.Values.cluster.name }}
+    {{- end }}
+    {{- if $app.server }}
+    name: {{ $app.server }}
+    {{- else }}
+    name: {{ $.Values.cluster.name }}
+    {{- end }}
+  project: capi
+  source:
+    helm:
+      ignoreMissingValueFiles: false
+      valueFiles:
+      - ../../values/values.yaml
+    path: charts/{{ $app.name }}
+    repoURL: {{ $.Values.gitrepo }}
+    targetRevision: {{ $.Values.gitbranch }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - FailOnSharedResource=true
+---
+{{- end }}
