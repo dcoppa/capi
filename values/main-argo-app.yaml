@@ -17,6 +17,9 @@ spec:
     repoURL: https://github.com/dcoppa/capi.git
     targetRevision: main
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true
     - FailOnSharedResource=true
