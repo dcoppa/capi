@@ -7,8 +7,8 @@ apps:
     server: in-cluster
   - name: argocd-cluster
     namespace: argocd
-    order: 1
+    order: 0
     server: in-cluster
   - name: nginx
     namespace: nginx
-    order: 2
+    order: 1
