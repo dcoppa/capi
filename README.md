@@ -16,5 +16,6 @@ To make the pipeline work correctly, add the following piece of code to the `arg
           end
         end
         return hs
+```
 
 Then restart Argo CD.
