@@ -9,6 +9,10 @@ spec:
     name: in-cluster
   project: capi
   source:
+    helm:
+      ignoreMissingValueFiles: false
+      valueFiles:
+      - ../../values/values.yaml
     path: charts/main
     repoURL: https://github.com/dcoppa/capi.git
     targetRevision: main
