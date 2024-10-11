@@ -1,0 +1,1 @@
+Copy the "argocd" and "kubectl" executables here
