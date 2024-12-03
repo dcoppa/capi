@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: main
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    name: in-cluster
+  project: capi
+  source:
+    helm:
+      ignoreMissingValueFiles: false
+      valueFiles:
+      - ../../values/values-2.yaml
+    path: charts/main
+    repoURL: https://github.com/dcoppa/capi.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - FailOnSharedResource=true
