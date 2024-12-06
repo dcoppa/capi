@@ -9,6 +9,7 @@ spec:
     - name: "aws-ebs-csi-driver"
       version: "v1.35.0-eksbuild.1"
       conflictResolution: "overwrite"
+  associateOIDCProvider: true
   endpointAccess:
     private: true
     public: true
