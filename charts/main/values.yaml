@@ -5,10 +5,6 @@ apps:
   - name: eks
     order: 0
     server: in-cluster
-  - name: argocd-cluster
-    namespace: argocd
-    order: 0
-    server: in-cluster
   - name: nginx
     namespace: nginx
     order: 1

@@ -1,0 +1,64 @@
+apiVersion: v1
+data:
+  resource.customizations.health.argoproj.io_Application: |
+    hs = {}
+    hs.status = "Progressing"
+    hs.message = ""
+    if obj.status ~= nil then
+      if obj.status.health ~= nil then
+        hs.status = obj.status.health.status
+        if obj.status.health.message ~= nil then
+          hs.message = obj.status.health.message
+        end
+      end
+    end
+    return hs
+  resource.customizations.health.cluster.x-k8s.io_Cluster: |
+    function getStatusBasedOnPhase(obj, hs)
+        hs.status = "Progressing"
+        hs.message = "Waiting for clusters"
+        if obj.status ~= nil and obj.status.phase ~= nil then
+            if obj.status.phase == "Provisioned" then
+                hs.status = "Healthy"
+                hs.message = "Cluster is running"
+            end
+            if obj.status.phase == "Failed" then
+                hs.status = "Degraded"
+                hs.message = ""
+            end
+        end
+        return hs
+    end
+    local hs = {}
+    if obj.spec.paused ~= nil and obj.spec.paused then
+        hs.status = "Suspended"
+        hs.message = "Cluster is paused"
+        return hs
+    end
+    getStatusBasedOnPhase(obj, hs)
+    return hs
+  resource.customizations.health.cluster.x-k8s.io_MachinePool: |
+    function getStatusBasedOnPhase(obj, hs)
+        if obj.status ~= nil and obj.status.phase ~= nil then
+            hs.message = "MachinePool is " .. obj.status.phase
+            if obj.status.phase == "Running" then
+                hs.status = "Healthy"
+            end
+            if obj.status.phase == "Failed" or obj.status.phase == "Unknown"  then
+                hs.status = "Degraded"
+            end
+        end
+        return hs
+    end
+    local hs = {}
+    hs.status = "Progressing"
+    hs.message = ""
+    getStatusBasedOnPhase(obj, hs)
+    return hs
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cm
+  namespace: argocd
