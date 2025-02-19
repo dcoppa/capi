@@ -1,5 +1,6 @@
 cluster:
   name: cluster1
+  version: v1.32.0
   pod_network_cidr: 192.168.0.0/16
   region: eu-central-1
   replicas: 1
