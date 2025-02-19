@@ -1,0 +1,48 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: argo-cluster-generation-from-capi
+spec:
+  rules:
+    - name: source-capi-secret
+      match:
+        all:
+          - resources:
+              kinds:
+                - v1/Secret
+              names:
+                - "*-kubeconfig"
+              selector:
+                matchLabels:
+                  cluster.x-k8s.io/cluster-name: "*"
+      context:
+        - name: clusterName
+          variable:
+            jmesPath: 'request.object.metadata.labels."cluster.x-k8s.io/cluster-name"'
+        - name: kubeconfig
+          variable:
+            jmesPath: "request.object.data.value | base64_decode(@) | parse_yaml(@)"
+        - name: dataConfig
+          variable:
+            value: |
+              {
+                "bearerToken": "{{ kubeconfig.users[0].user.token }}",
+                "tlsClientConfig": {
+                  "caData": "{{ kubeconfig.clusters[0].cluster."certificate-authority-data" }}"
+                }
+              }
+      generate:
+        synchronize: true
+        apiVersion: v1
+        kind: Secret
+        namespace: argocd
+        name: "{{ clusterName }}-cluster"
+        data:
+          metadata:
+            labels:
+              argocd.argoproj.io/secret-type: cluster
+          type: Opaque
+          stringData:
+            name: "{{ clusterName }}"
+            server: "{{ kubeconfig.clusters[0].cluster.server }}"
+            config: "{{ dataConfig }}"
