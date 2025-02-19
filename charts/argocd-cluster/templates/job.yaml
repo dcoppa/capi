@@ -9,11 +9,16 @@ spec:
       labels:
         job: argocd-cluster
     spec:
-      containers:
+      initContainers:
         - name: kubectl-dash
           image: docker.io/dcoppa/kubectl-dash:v1.32.1
           imagePullPolicy: IfNotPresent
           command: ['dash', '-c', "until kubectl -n {{ .Values.cluster.name }} get secrets {{ .Values.cluster.name }}-kubeconfig ; do sleep 1 ; done"]
+      containers:
+        - name: busybox
+          image: busybox:1.37.0
+          imagePullPolicy: IfNotPresent
+          command: ['true']
       restartPolicy: OnFailure
       serviceAccountName: {{ .Release.Name }}-sa
   ttlSecondsAfterFinished: 1800
