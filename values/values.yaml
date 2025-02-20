@@ -1,5 +1,5 @@
 cluster:
-  name: cluster1
+  name: demo
   version: v1.32.0
   pod_network_cidr: 192.168.0.0/16
   region: eu-central-1
