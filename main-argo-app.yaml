@@ -13,7 +13,7 @@ spec:
       ignoreMissingValueFiles: false
       valueFiles:
       - ../../values/values.yaml
-    path: charts/main
+    path: charts/00-main
     repoURL: https://github.com/dcoppa/capi.git
     targetRevision: main
   syncPolicy:
