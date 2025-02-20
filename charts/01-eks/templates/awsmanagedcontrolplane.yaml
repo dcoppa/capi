@@ -12,6 +12,10 @@ spec:
       conflictResolution: "overwrite"
     {{- end }}
   associateOIDCProvider: true
+  encryptionConfig:
+    provider: {{ .Values.cluster.kms_key_arn }}
+    resources:
+      - "secrets"
   endpointAccess:
     private: true
     public: true

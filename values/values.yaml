@@ -5,6 +5,7 @@ cluster:
   region: eu-central-1
   replicas: 1
   admin_role_arn: arn:aws:iam::721773408576:role/delegate-da-admin
+  kms_key_arn: arn:aws:kms:eu-central-1:721773408576:key/9265be83-3dc8-4872-8f69-5f61631090ac
   ssh_key_name: capi-eks
   addons:
   - name: aws-ebs-csi-driver
