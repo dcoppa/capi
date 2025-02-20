@@ -6,3 +6,12 @@ cluster:
   replicas: 1
   admin_role_arn: arn:aws:iam::721773408576:role/delegate-da-admin
   ssh_key_name: capi-eks
+  addons:
+  - name: aws-ebs-csi-driver
+    version: v1.39.0-eksbuild.1
+  - name: coredns
+    version: v1.11.4-eksbuild.2
+  - name: kube-proxy
+    version: v1.32.0-eksbuild.2
+  - name: vpc-cni
+    version: v1.19.2-eksbuild.5

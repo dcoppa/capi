@@ -6,9 +6,11 @@ metadata:
   name: {{ .Values.cluster.name }}-control-plane
 spec:
   addons:
-    - name: "aws-ebs-csi-driver"
-      version: "v1.35.0-eksbuild.1"
+    {{- range $addon := .Values.cluster.addons }}
+    - name: {{ $addon.name }}
+      version: {{ $addon.version }}
       conflictResolution: "overwrite"
+    {{- end }}
   associateOIDCProvider: true
   endpointAccess:
     private: true
