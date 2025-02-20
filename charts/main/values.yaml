@@ -2,9 +2,9 @@ gitrepo: https://github.com/dcoppa/capi.git
 gitbranch: main
 project: capi
 apps:
-  - name: eks
+  - name: 01-eks
     order: 0
     server: in-cluster
-  - name: nginx
+  - name: 02-nginx
     namespace: nginx
     order: 1
