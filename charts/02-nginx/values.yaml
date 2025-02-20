@@ -32,7 +32,7 @@ global:
 nameOverride: ""
 ## @param fullnameOverride String to fully override nginx.fullname template
 ##
-fullnameOverride: ""
+fullnameOverride: "nginx"
 ## @param namespaceOverride String to fully override common.names.namespace
 ##
 namespaceOverride: ""
