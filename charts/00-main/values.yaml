@@ -3,8 +3,11 @@ gitbranch: main
 project: capi
 apps:
   - name: 01-eks
-    order: 0
     server: in-cluster
-  - name: 02-nginx
-    namespace: nginx
+    order: 0
+  - name: 02-external-secrets
+    namespace: external-secrets
     order: 1
+  - name: 03-nginx
+    namespace: nginx
+    order: 2
