@@ -12,7 +12,7 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta2
     kind: AWSManagedControlPlane
-    name: control_plane
+    name: controlplane
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
     kind: AWSManagedCluster
