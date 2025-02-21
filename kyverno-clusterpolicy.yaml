@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   labels:
     rbac.kyverno.io/aggregate-to-admission-controller: "true"
-  name: kyverno:get-list-secrets
+  name: kyverno:capi-cluster-secrets
 rules:
 - apiGroups:
   - ""
@@ -18,7 +18,7 @@ kind: ClusterRole
 metadata:
   labels:
     rbac.kyverno.io/aggregate-to-background-controller: "true"
-  name: kyverno:create-delete-secrets
+  name: kyverno:argocd-cluster-secrets
 rules:
 - apiGroups:
   - ""
