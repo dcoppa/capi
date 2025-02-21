@@ -3,7 +3,7 @@ kind: AWSManagedMachinePool
 metadata:
   labels:
     {{- include "capieks.labels" . | nindent 4 }}
-  name: {{ .Values.cluster.name }}-pool-0
+  name: pool
 spec:
   amiType: AL2023_x86_64_STANDARD
   roleName: nodes.cluster-api-provider-aws.sigs.k8s.io

@@ -3,7 +3,7 @@ kind: AWSManagedControlPlane
 metadata:
   labels:
     {{- include "capieks.labels" . | nindent 4 }}
-  name: {{ .Values.cluster.name }}-control-plane
+  name: control_plane
 spec:
   addons:
     {{- range $addon := .Values.cluster.addons }}
