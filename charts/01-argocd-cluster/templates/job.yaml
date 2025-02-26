@@ -47,4 +47,4 @@ spec:
         runAsUser: 65532
         runAsGroup: 65532
         fsGroup: 65534
-      serviceAccountName: {{ .Release.Name }}-sa
+      serviceAccountName: {{ .Chart.Name }}-sa
