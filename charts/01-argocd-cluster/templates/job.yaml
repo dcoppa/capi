@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: argocd-cluster
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    metadata:
+      labels:
+        job: argocd-cluster
+    spec:
+      initContainers:
+        - name: delete-secret
+          image: docker.io/dcoppa/kubectl-dash:v1.32.2
+          imagePullPolicy: IfNotPresent
+          command: ['dash', '-c', "kubectl -n {{ .Release.Namespace }} delete secret {{ .Values.cluster.name }}-cluster || true"]
+        - name: wait-for-secret
+          image: docker.io/dcoppa/kubectl-dash:v1.32.2
+          imagePullPolicy: IfNotPresent
+          command: ['dash', '-c', "until kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ; do sleep 1 ; done"]
+      containers:
+        - name: sleep
+          image: busybox:1.37.0
+          imagePullPolicy: IfNotPresent
+          command: ['sleep', '5']
+      restartPolicy: OnFailure
+      serviceAccountName: {{ .Release.Name }}-sa
