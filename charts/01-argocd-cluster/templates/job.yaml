@@ -13,7 +13,7 @@ spec:
         - name: delete-secret
           image: docker.io/dcoppa/kubectl-dash:v1.32.2
           imagePullPolicy: IfNotPresent
-          command: ['dash', '-c', "if ( ! kubectl -n {{ .Values.cluster.name }} get secret {{ .Values.cluster.name }}-kubeconfig && kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ); then kubectl -n {{ .Release.Namespace }} delete secret {{ .Values.cluster.name }}-cluster ; fi"]
+          command: ['dash', '-c', "if ( ! kubectl -n {{ .Values.cluster.name }} get secret {{ .Values.cluster.name }}-kubeconfig && kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ); then kubectl -n {{ .Release.Namespace }} delete secret {{ .Values.cluster.name }}-cluster; fi"]
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
