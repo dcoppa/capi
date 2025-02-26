@@ -1,4 +1,4 @@
 FROM cgr.dev/chainguard/kubectl:latest
-COPY dash /usr/bin/dash
-COPY sleep /usr/bin/sleep
+COPY --chmod=555 dash /usr/bin/dash
+COPY --chmod=555 sleep /usr/bin/sleep
 USER nonroot
