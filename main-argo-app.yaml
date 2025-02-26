@@ -10,7 +10,6 @@ spec:
   project: capi
   source:
     helm:
-      ignoreMissingValueFiles: false
       valueFiles:
       - ../../values/values.yaml
     path: charts/00-main
