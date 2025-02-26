@@ -23,7 +23,7 @@ spec:
         - name: wait-for-secret
           image: docker.io/dcoppa/kubectl-dash:v1.32.2
           imagePullPolicy: IfNotPresent
-          command: ['dash', '-c', "until kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ; do sleep 1 ; done"]
+          command: ['dash', '-c', "until kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ; do sleep 2 ; done"]
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
