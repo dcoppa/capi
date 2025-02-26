@@ -2,12 +2,16 @@ gitrepo: https://github.com/dcoppa/capi.git
 gitbranch: main
 project: capi
 apps:
-  - name: 01-eks
+  - name: 01-argocd-cluster
+    namespace: argocd
     server: in-cluster
     order: 0
-  - name: 02-external-secrets
+  - name: 02-eks
+    server: in-cluster
+    order: 0
+  - name: 03-external-secrets
     namespace: external-secrets
     order: 1
-  - name: 03-nginx
+  - name: 04-nginx
     namespace: nginx
     order: 2
