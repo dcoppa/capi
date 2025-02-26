@@ -14,14 +14,37 @@ spec:
           image: docker.io/dcoppa/kubectl-dash:v1.32.2
           imagePullPolicy: IfNotPresent
           command: ['dash', '-c', "kubectl -n {{ .Release.Namespace }} delete secret {{ .Values.cluster.name }}-cluster || true"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
         - name: wait-for-secret
           image: docker.io/dcoppa/kubectl-dash:v1.32.2
           imagePullPolicy: IfNotPresent
           command: ['dash', '-c', "until kubectl -n {{ .Release.Namespace }} get secret {{ .Values.cluster.name }}-cluster ; do sleep 1 ; done"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
       containers:
         - name: sleep
           image: busybox:1.37.0
           imagePullPolicy: IfNotPresent
           command: ['sleep', '5']
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 33
+            runAsGroup: 33
       restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65534
       serviceAccountName: {{ .Release.Name }}-sa
